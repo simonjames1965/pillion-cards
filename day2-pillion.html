@@ -9,58 +9,63 @@
 <style>
   *{margin:0;padding:0;box-sizing:border-box;-webkit-text-size-adjust:100%}
   body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;
-       background:#eef2f5;color:#16202a;font-size:17px;line-height:1.45;padding-bottom:32px}
+       background:#eef2f5;color:#16202a;font-size:18px;line-height:1.45;padding-bottom:32px}
   .wrap{max-width:560px;margin:0 auto;padding:0 12px}
-  .top{position:sticky;top:0;z-index:50;background:#16324f;color:#fff;padding:10px 12px;
-       box-shadow:0 2px 10px rgba(10,25,40,.3)}
-  .top .inner{max-width:560px;margin:0 auto}
-  .route{font-size:19px;font-weight:700}
-  .route span{font-weight:400;opacity:.75;font-size:15px}
-  .statusrow{display:flex;align-items:center;gap:10px;margin-top:7px;flex-wrap:wrap}
-  .clock{font-size:30px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
-  .pill{font-size:15px;font-weight:700;padding:5px 12px;border-radius:999px;background:#54636e;color:#fff}
+  /* v29 — the whole header block (compact top bar + next-stop hero) stays pinned while the list scrolls */
+  .sticky{position:sticky;top:0;z-index:50;box-shadow:0 4px 14px rgba(10,25,40,.28)}
+  .top{background:#16324f;color:#fff;padding:8px 12px}
+  .top .inner{max-width:560px;margin:0 auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .route{font-size:15px;font-weight:700;flex:1;min-width:120px}
+  .route span{font-weight:400;opacity:.75;font-size:13px}
+  .clock{font-size:26px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
+  .pill{font-size:14px;font-weight:700;padding:4px 11px;border-radius:999px;background:#54636e;color:#fff}
   .pill.ok{background:#2f8f57}.pill.late{background:#c0392b}.pill.early{background:#1565c0}
-  .doingnow{font-size:15.5px;opacity:.95;margin-top:6px}
-  .doingnow b{color:#9fe3b6}
+  .hero{background:#fff;padding:12px 14px 12px;border-left:10px solid #8e44ad;border-bottom:1px solid #d5dce2}
+  .hero .hin{max-width:560px;margin:0 auto}
+  .kicker{font-size:14px;font-weight:800;letter-spacing:1.2px;color:#5a6773;text-transform:uppercase}
+  .kicker b{color:#127a3c}
+  .hero h2{font-size:34px;line-height:1.08;margin:3px 0 8px;color:#16324f}
+  .stats{display:flex;gap:8px;text-align:center}
+  .stats div{flex:1;background:#f2f6f9;border-radius:12px;padding:8px 4px 7px}
+  .stats .lab{font-size:12.5px;color:#5a6773;text-transform:uppercase;letter-spacing:.5px;font-weight:700}
+  .stats .val{font-size:38px;font-weight:800;color:#16324f;line-height:1.05;font-variant-numeric:tabular-nums}
+  .stats .un{font-size:14px;font-weight:700;color:#5a6773}
+  .src{font-size:13px;color:#5a6773;margin-top:6px;font-weight:600}
+  .src b{color:#127a3c}
+  .dayline{font-size:15.5px;color:#16324f;margin-top:6px;font-weight:700}
+  .dayline span{font-variant-numeric:tabular-nums}
+  .notes{font-size:17.5px;margin-top:7px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .road{font-size:15px;color:#5a6773;margin-top:4px}
+  .bail{display:none;margin-top:9px;background:#fdecea;border-left:6px solid #c0392b;
+        border-radius:10px;padding:9px 11px;font-size:15.5px;color:#7d2018;font-weight:600}
+  .bail b{color:#a5261a}
+  .btnrow{display:flex;gap:9px;margin-top:10px}
+  .btn{flex:1;display:block;text-align:center;text-decoration:none;background:#16324f;color:#fff;
+       font-size:17px;font-weight:700;padding:13px 8px;border-radius:12px;border:none;font-family:inherit}
+  .btn.alt{background:#e8edf1;color:#16324f;display:none}
+  .btn:active{opacity:.75}
   .staticnote{background:#fff4e0;border-left:6px solid #b26a00;border-radius:10px;
        padding:11px 12px;margin-top:12px;font-size:15px;color:#6b4a00}
   .staticnote b{color:#4c3500}
-  .hero{background:#fff;border-radius:16px;margin-top:12px;padding:16px 16px 14px;
-        box-shadow:0 2px 8px rgba(14,36,56,.14);border-left:8px solid #8e44ad}
-  .kicker{font-size:13.5px;font-weight:800;letter-spacing:1.3px;color:#5a6773;text-transform:uppercase}
-  .hero h2{font-size:29px;line-height:1.1;margin:4px 0 2px;color:#16324f}
-  .hero .when{font-size:20px;font-weight:800;color:#127a3c;margin-top:4px}
-  .hero .what{font-size:16.5px;margin-top:8px}
-  .hero .road{font-size:15.5px;color:#5a6773;margin-top:6px}
-  .eta{margin-top:12px;padding-top:12px;border-top:1px solid #dfe4e8;display:flex;gap:10px}
-  .eta div{flex:1}
-  .eta .lab{font-size:13px;color:#5a6773;text-transform:uppercase;letter-spacing:.6px;font-weight:700}
-  .eta .val{font-size:20px;font-weight:800;color:#16324f;margin-top:2px}
-  .bail{display:none;margin-top:12px;background:#fdecea;border-left:6px solid #c0392b;
-        border-radius:10px;padding:11px 12px;font-size:15.5px;color:#7d2018;font-weight:600}
-  .bail b{color:#a5261a}
-  .btnrow{display:flex;gap:9px;margin-top:13px}
-  .btn{flex:1;display:block;text-align:center;text-decoration:none;background:#16324f;color:#fff;
-       font-size:16.5px;font-weight:700;padding:14px 8px;border-radius:12px;border:none;font-family:inherit}
-  .btn.alt{background:#e8edf1;color:#16324f;display:none}
-  .btn:active{opacity:.75}
-  h3.sec{font-size:14px;font-weight:800;letter-spacing:1.4px;color:#5a6773;text-transform:uppercase;margin:22px 4px 9px}
+  h3.sec{font-size:14.5px;font-weight:800;letter-spacing:1.4px;color:#5a6773;text-transform:uppercase;margin:20px 4px 9px}
   .stop{background:#fff;border-radius:14px;margin-bottom:9px;padding:13px 14px;
-        box-shadow:0 1px 5px rgba(14,36,56,.11);border-left:7px solid #dfe4e8}
-  .stop.done{opacity:.5}
+        box-shadow:0 1px 5px rgba(14,36,56,.11);border-left:8px solid #dfe4e8}
+  .stop.done{opacity:.45}
   .stop.now{box-shadow:0 0 0 3px #f0b429,0 2px 8px rgba(14,36,56,.18)}
+  .stop.fuel{border-left-color:#b7791f;background:#fffdf6}
   .srow{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
-  .stime{font-size:22px;font-weight:800;color:#16324f;font-variant-numeric:tabular-nums;min-width:118px}
-  .sname{font-size:19px;font-weight:700;line-height:1.2}
-  .sdet{font-size:15.5px;color:#5a6773;margin-top:5px}
+  .stime{font-size:23px;font-weight:800;color:#16324f;font-variant-numeric:tabular-nums;min-width:122px}
+  .stime.fuelchip{font-size:15px;font-weight:800;color:#8a5a12;letter-spacing:1px;min-width:122px}
+  .sname{font-size:20px;font-weight:700;line-height:1.2}
+  .sdet{font-size:16px;color:#5a6773;margin-top:5px}
   .sdet b{color:#16202a}
-  .sdet2{font-size:15px;color:#16202a;margin-top:4px}
+  .sdet2{font-size:15.5px;color:#16202a;margin-top:4px}
   .sdet2 a{color:#0a58b8;font-weight:700;text-decoration:none}
-  .tapme{font-size:13.5px;color:#1565c0;font-weight:700;margin-top:7px}
+  .tapme{font-size:14px;color:#1565c0;font-weight:700;margin-top:7px}
   .info{background:#fbf8f0;border-radius:14px;padding:14px 15px;margin-bottom:9px;
         box-shadow:0 1px 5px rgba(14,36,56,.1)}
-  .info h4{font-size:17px;color:#16324f;margin-bottom:6px}
-  .info p{font-size:15.5px;margin-bottom:6px}
+  .info h4{font-size:17.5px;color:#16324f;margin-bottom:6px}
+  .info p{font-size:16px;margin-bottom:6px}
   .info p:last-child{margin-bottom:0}
   .info a{color:#0a58b8;font-weight:700}
   .warn{background:#fff4e0;border-left:7px solid #b26a00}
@@ -69,41 +74,47 @@
 </head>
 <body>
 
-<div class="top"><div class="inner">
-  <div class="route">Langham → Welland Valley → Langham <span>· Sun 9 Aug</span></div>
-  <div class="statusrow">
+<div class="sticky" id="stickyhead">
+  <div class="top"><div class="inner">
+    <div class="route">Langham → Welland Valley → Langham <span>· Sun 9 Aug</span></div>
     <div class="clock" id="clock">PLAN</div>
     <div class="pill" id="pill">ALL TIMES 24-HR</div>
-  </div>
-  <div class="doingnow" id="doingnow">Welland Sunday — two crown roads, the Dambusters' water and 82 arches</div>
-</div></div>
+  </div></div>
+  <div class="hero" id="hero" style="border-left-color:#2e8b57"><div class="hin">
+    <div class="kicker" id="herokicker">NEXT STOP · <b id="herokind">COFFEE</b> · <span id="heroplanwhen">plan 11:20→11:35</span></div>
+    <h2 id="heroname">Ye Olde Pork Pie Shoppe</h2>
+    <div class="stats">
+      <div><div class="lab">To go</div><div class="val" id="herodist">9</div><div class="un">miles</div></div>
+      <div><div class="lab">Ride</div><div class="val" id="herotime">20</div><div class="un">min</div></div>
+      <div><div class="lab">Arrive</div><div class="val" id="heroeta">11:20</div><div class="un" id="heroetaun">plan</div></div>
+    </div>
+    <div class="src" id="herosrc">PLAN times — live distance needs GPS (open the hosted link in Chrome/Safari and allow location)</div>
+    <div class="dayline" id="dayline">Langham <span id="finaleta">17:24</span> · <span id="dayleft">96</span> mi left in the day</div>
+    <div class="notes" id="heronotes">Dickinson & Morris — the home of the Melton pork pie, baking since 1851; bag one for the top-box. The pin is the rideable St Mary's Way corner; the shoppe door is ≈90 m up pedestrian-priority Nottingham St.</div>
+    <div class="road" id="heroroad">Nottingham St, Melton</div>
+    <div class="bail" id="bail">Running late? Decide at the Queen's Head: skip the Fotheringhay loop, A43 → Duddington direct — ≈25 min saved.</div>
+    <div class="btnrow">
+      <a class="btn" id="heromap" href="https://www.google.com/maps/search/?api=1&query=Ye+Olde+Pork+Pie+Shoppe+Melton+Mowbray">Open in Maps</a>
+      <button class="btn alt" id="herebtn" type="button">I'm here now</button>
+    </div>
+  </div></div>
+</div>
 
 <div class="wrap">
 
   <div class="staticnote" id="staticnote"><b>Preview mode</b> — all times shown are the plan and every
-  link works. For the live version (clock, running-late maths, tap-a-stop), open this file in a proper
-  browser: <b>Android</b> — download, then open with Chrome. <b>iPhone</b> — save to Files, then
-  long-press the file → Share → Safari.</div>
+  link works. For the live version (clock, GPS distance to the next stop, running-late maths,
+  tap-a-stop), open this card's WEB LINK in a proper browser — in WhatsApp tap the https link, not a
+  file attachment — and allow location when Chrome/Safari asks.</div>
 
-  <div class="hero" id="hero" style="border-left-color:#1565c0">
-    <div class="kicker" id="herokicker">First stop after the meet</div>
-    <h2 id="heroname">Foxton Locks</h2>
-    <div class="when" id="herowhen">LUNCH · 12:24 → 13:24</div>
-    <div class="what" id="herowhat">Sunday lunch above the lock staircase</div>
-    <div class="road" id="heroroad">Gumley Rd, Foxton</div>
-    <div class="eta">
-      <div><div class="lab">Miles to go</div><div class="val" id="heromiles">96 mi</div></div>
-      <div><div class="lab">Langham plan</div><div class="val" id="heroeta">17:24</div></div>
-    </div>
-    <div class="bail" id="bail">Running late? Decide at the Queen's Head: skip the Fotheringhay loop, A43 → Duddington direct — ≈25 min saved.</div>
-    <div class="btnrow">
-      <a class="btn" id="heromap" href="https://www.google.com/maps/search/?api=1&query=Foxton+Locks">Open in Maps</a>
-      <button class="btn alt" id="herebtn" type="button">I'm here now</button>
-    </div>
-  </div>
-
-  <h3 class="sec" id="tlhead">The day</h3>
+  <h3 class="sec" id="tlhead">Coming up</h3>
   <div id="timeline">
+    <div class="stop fuel" id="fuel0">
+      <div class="srow"><div class="stime fuelchip">FUEL</div>
+      <div class="sname">Brim before departure — Oakham/Langham</div></div>
+      <div class="sdet"><b>FUEL</b> · fill before the 11:00 start</div>
+      <div class="sdet2">96-mi day on a 200-mi tank — no stop planned. En-route brackets if needed: Melton (9 mi in), Uppingham, Stamford. <a href="https://www.google.com/maps/search/?api=1&query=petrol+station+Oakham">Map →</a> </div>
+    </div>
     <div class="stop" id="stop0" style="border-left-color:#2e8b57" role="button" tabindex="0">
       <div class="srow"><div class="stime" id="stime0">11:20–11:35</div>
       <div class="sname">Ye Olde Pork Pie Shoppe</div></div>
@@ -161,6 +172,9 @@
       <div class="tapme" id="tap7" style="display:none">Tap when you get here →</div>
     </div></div>
 
+  <h3 class="sec" id="donehead" style="display:none">Done today</h3>
+  <div id="donewrap"></div>
+
   <h3 class="sec">If things slip</h3>
   <div class="info warn">
     <h4>If the day runs long</h4>
@@ -174,11 +188,11 @@
 
   <div class="info">
     <h4>The day's route in Google Maps</h4>
-    <p><a href="https://www.google.com/maps/dir/5+Oakham+Road,+Langham+LE15+7JW/52.765769,-0.886273/52.674755,-0.937033/52.578653,-0.941718/52.496117,-0.982565/">Section 1 — Langham → Foxton Locks entrance (Melton & the B6047, ≈34 mi) →</a></p><p><a href="https://www.google.com/maps/dir/52.496117,-0.982565/52.559011,-0.782548/52.563984,-0.730859/52.550271,-0.700236/52.557586,-0.631963/The+Queens+Head,+Main+Street,+Bulwick+NN17+3DY/">Section 2 — Foxton → Queen's Head Bulwick (B664, Eyebrook & the viaduct, ≈31 mi) →</a></p><p><a href="https://www.google.com/maps/dir/The+Queens+Head,+Main+Street,+Bulwick+NN17+3DY/52.51657,-0.589086/St+Mary+and+All+Saints+Church,+Fotheringhay,+Peterborough/52.539108,-0.480082/52.568834,-0.507308/52.642998,-0.623997/5+Oakham+Road,+Langham+LE15+7JW/">Section 3 — Bulwick → Langham (Fotheringhay & Rutland Water, ≈40 mi) →</a></p>
+    <p><a href="https://www.google.com/maps/dir/5+Oakham+Road,+Langham+LE15+7JW/52.765769,-0.886273/52.674755,-0.937033/52.578653,-0.941718/52.496099,-0.983962/">Section 1 — Langham → Foxton Locks entrance (Melton & the B6047, ≈34 mi) →</a></p><p><a href="https://www.google.com/maps/dir/52.496099,-0.983962/52.559011,-0.782548/52.563984,-0.730859/52.550271,-0.700236/52.557586,-0.631963/The+Queens+Head,+Main+Street,+Bulwick+NN17+3DY/">Section 2 — Foxton → Queen's Head Bulwick (B664, Eyebrook & the viaduct, ≈31 mi) →</a></p><p><a href="https://www.google.com/maps/dir/The+Queens+Head,+Main+Street,+Bulwick+NN17+3DY/52.51657,-0.589086/St+Mary+and+All+Saints+Church,+Fotheringhay,+Peterborough/52.539108,-0.480082/52.568834,-0.507308/52.642955,-0.624067/5+Oakham+Road,+Langham+LE15+7JW/">Section 3 — Bulwick → Langham (Fotheringhay & Rutland Water, ≈40 mi) →</a></p>
     <p style="color:#5a6773">Three link sections, reload at Foxton Locks and the Queen's Head.</p>
   </div>
 
-  <div class="foot" id="foot">Roadbook V1.0 · created 6 August 2026 ≈20:05 BST · re-check weather &amp; closures on the morning.</div>
+  <div class="foot" id="foot">Roadbook V2.0 · created 8 August 2026 ≈13:10 BST (V2.0 — C4 waypoint-precision rebuild + live pillion card) · re-check weather &amp; closures on the morning.</div>
 </div>
 
 <script>
@@ -186,81 +200,147 @@
 (function(){
 "use strict";
 try{
-  var PLAN = [{"t": "11:20", "out": "11:35", "name": "Ye Olde Pork Pie Shoppe", "mi": 9}, {"t": "12:24", "out": "13:24", "name": "Foxton Locks", "mi": 33}, {"t": "14:09", "out": "14:17", "name": "Eyebrook Reservoir", "mi": 50}, {"t": "14:33", "out": "14:43", "name": "Harringworth Viaduct", "mi": 57}, {"t": "14:55", "out": "15:20", "name": "The Queen's Head, Bulwick", "mi": 60}, {"t": "15:48", "out": "16:00", "name": "Fotheringhay", "mi": 71}, {"t": "16:48", "out": "17:00", "name": "Normanton Church", "mi": 87}, {"t": "17:24", "out": "17:24", "name": "Langham", "mi": 96}];
+  var PLAN = [{"t": "11:20", "out": "11:35", "name": "Ye Olde Pork Pie Shoppe", "mi": 9, "lat": 52.765769, "lng": -0.886273, "kind": "COFFEE", "road": "Nottingham St, Melton", "what": "Melton pork pie to go", "detail": "Dickinson & Morris \u2014 the home of the Melton pork pie, baking since 1851; bag one for the top-box. The pin is the rideable St Mary's Way corner; the shoppe door is \u224890 m up pedestrian-priority Nottingham St.", "map": "https://www.google.com/maps/search/?api=1&query=Ye+Olde+Pork+Pie+Shoppe+Melton+Mowbray", "col": "#2e8b57"}, {"t": "12:24", "out": "13:24", "name": "Foxton Locks", "mi": 33, "lat": 52.496099, "lng": -0.983962, "kind": "LUNCH", "road": "Gumley Rd, Foxton", "what": "Sunday lunch above the lock staircase", "detail": "Britain's longest staircase of locks \u2014 ten chambers falling 75 ft down the hillside. Sunday lunch at Foxton Locks Inn (food 9\u20135). Bikes in the Long Stay car park at this Gumley Road entrance; \u224810-min walk down.", "map": "https://www.google.com/maps/search/?api=1&query=Foxton+Locks", "col": "#1565c0"}, {"t": "14:09", "out": "14:17", "name": "Eyebrook Reservoir", "mi": 50, "lat": 52.574792, "lng": -0.726675, "kind": "PHOTO", "road": "Stoke Dry\u2013Great Easton shore road", "what": "Dambusters' practice water", "detail": "617 Squadron's Dambusters practice water, spring 1943 \u2014 they flew this valley at 60 ft. Informal layby on the west-shore road; a passing pause, skip if full.", "map": "https://www.google.com/maps/search/?api=1&query=Eyebrook+Reservoir", "col": "#8e44ad"}, {"t": "14:33", "out": "14:43", "name": "Harringworth Viaduct", "mi": 57, "lat": 52.558391, "lng": -0.664617, "kind": "PHOTO", "road": "Seaton Rd layby", "what": "82 brick arches from the Seaton road", "detail": "All 82 arches of Britain's longest masonry viaduct (1878) striding the Welland valley. Layby on the Seaton road right under the arches.", "map": "https://www.google.com/maps/search/?api=1&query=Harringworth+Viaduct", "col": "#8e44ad"}, {"t": "14:55", "out": "15:20", "name": "The Queen's Head, Bulwick", "mi": 60, "lat": 52.537199, "lng": -0.581789, "kind": "COFFEE + BAIL-OUT", "road": "just off A43", "what": "Coffee & cake in the stone freehouse", "detail": "17th-century stone freehouse \u2014 coffee & cake, own off-road car park. BAIL-OUT decision point: skip the Fotheringhay loop, A43 \u2192 Duddington direct, \u224825 min saved. Sunday service unverified \u2014 01536 645460.", "map": "https://www.google.com/maps/search/?api=1&query=The+Queens+Head+Bulwick", "col": "#e67e22"}, {"t": "15:48", "out": "16:00", "name": "Fotheringhay", "mi": 71, "lat": 52.526167, "lng": -0.43821, "kind": "PHOTO", "road": "Fotheringhay village", "what": "Lantern tower & castle mound", "detail": "Richard III's birthplace mound and the great lantern tower of St Mary & All Saints over the Nene. Street parking at the church gate on the through-road.", "map": "https://www.google.com/maps/search/?api=1&query=Fotheringhay+church", "col": "#8e44ad"}, {"t": "16:48", "out": "17:00", "name": "Normanton Church", "mi": 87, "lat": 52.642955, "lng": -0.624067, "kind": "PHOTO", "road": "South shore, Edith Weston", "what": "The church on the water", "detail": "Rutland Water's signature view \u2014 the half-drowned church out on its causeway. Pay & display at this entrance off Normanton Park Road; the church is a 5-min walk.", "map": "https://www.google.com/maps/search/?api=1&query=Normanton+Church+Rutland+Water", "col": "#8e44ad"}, {"t": "17:24", "out": "17:24", "name": "Langham", "mi": 96, "lat": 52.6871, "lng": -0.7562, "kind": "ARRIVE", "road": "Oakham Road", "what": "Home", "detail": "Home \u2014 5 Oakham Road. The plan lands with 66 min in hand on the 18:30 deadline.", "map": "https://www.google.com/maps/search/?api=1&query=Langham+Oakham", "col": "#0e8f8f"}];
+  var FUEL = [{"before": 0, "name": "Brim before departure \u2014 Oakham/Langham"}];
   var LIMIT = 1110, BAIL_AT = 1090, BAIL_IDX = 4, FINAL = PLAN.length-1;
   var FINALNAME = "Langham";
+  var TOURING = 1.1;          // router car time -> relaxed GT pace
+  var EST_WIGGLE = 1.25;      // straight-line -> road distance estimate
+  var EST_MPH = 28;           // touring average for the straight-line fallback
 
   function mins(x){ var p=x.split(':'); return (+p[0])*60 + (+p[1]); }
-  function hhmm(m){ m=((m%1440)+1440)%1440; var h=Math.floor(m/60),n=m%60;
+  function hhmm(m){ m=((Math.round(m)%1440)+1440)%1440; var h=Math.floor(m/60),n=m%60;
     return (h<10?'0':'')+h+':'+(n<10?'0':'')+n; }
-  function nowMins(){ var d=new Date(); return d.getHours()*60+d.getMinutes(); }
+  function nowMins(){ var d=new Date(); return d.getHours()*60+d.getMinutes()+d.getSeconds()/60; }
   function el(id){ return document.getElementById(id); }
 
-  var drift=null, reachedIdx=-1;
+  var drift=null, reachedIdx=-1, lastIdx=-99, lastShift=null;
+
+  // ---- live position (GPS or #sim=lat,lng test hook) ----------------------
+  var GEO={pos:null, sim:false, road:null, roadT:0, roadAtStraight:null, roadForIdx:-1, fetching:false, lastTry:0};
+  var simM = (location.hash||'').match(/sim=(-?[\d.]+),(-?[\d.]+)/);
+  if(simM){ GEO.pos=[+simM[1],+simM[2]]; GEO.sim=true; }
+  function haversineMi(lat1,lng1,lat2,lng2){
+    var R=3958.76, toR=Math.PI/180;
+    var dLa=(lat2-lat1)*toR, dLo=(lng2-lng1)*toR;
+    var a=Math.sin(dLa/2)*Math.sin(dLa/2)+Math.cos(lat1*toR)*Math.cos(lat2*toR)*Math.sin(dLo/2)*Math.sin(dLo/2);
+    return 2*R*Math.asin(Math.sqrt(a));
+  }
+  function fetchRoad(idx){
+    var s=PLAN[idx];
+    if(GEO.fetching || !GEO.pos || s.lat===undefined) return;
+    if(Date.now()-GEO.lastTry<45000 && GEO.lastTryIdx===idx) return;
+    GEO.lastTry=Date.now(); GEO.lastTryIdx=idx;
+    var straight=haversineMi(GEO.pos[0],GEO.pos[1],s.lat,s.lng);
+    GEO.fetching=true;
+    var url='https://router.project-osrm.org/route/v1/driving/'
+      +GEO.pos[1]+','+GEO.pos[0]+';'+s.lng+','+s.lat+'?overview=false';
+    var done=false;
+    var t=setTimeout(function(){ done=true; GEO.fetching=false; },4000);
+    fetch(url).then(function(r){return r.json();}).then(function(j){
+      if(done) return; clearTimeout(t); GEO.fetching=false;
+      if(j && j.routes && j.routes[0]){
+        GEO.road={mi:j.routes[0].distance/1609.34, min:j.routes[0].duration/60*TOURING};
+        GEO.roadT=Date.now(); GEO.roadAtStraight=straight; GEO.roadForIdx=idx;
+        render();
+      }
+    }).catch(function(){ if(!done){ clearTimeout(t); GEO.fetching=false; } });
+  }
+  if(!GEO.sim && navigator.geolocation && navigator.geolocation.watchPosition){
+    navigator.geolocation.watchPosition(function(p){
+      GEO.pos=[p.coords.latitude,p.coords.longitude]; render();
+    }, function(){ GEO.pos=null; GEO.road=null; render(); },
+    {enableHighAccuracy:true, maximumAge:10000, timeout:15000});
+  }
+
+  function nextIdx(){
+    var now=nowMins(), shift=(drift===null?0:drift), idx=FINAL;
+    for(var i=0;i<PLAN.length;i++){ if(now<mins(PLAN[i].out)+shift){ idx=i; break; } }
+    if(reachedIdx>=0 && idx<=reachedIdx) idx=Math.min(reachedIdx+1,FINAL);
+    return idx;
+  }
 
   function render(){
     var now=nowMins(), shift=(drift===null?0:drift), d=new Date();
     el('clock').textContent=(d.getHours()<10?'0':'')+d.getHours()+':'+(d.getMinutes()<10?'0':'')+d.getMinutes();
 
-    var nextIdx=FINAL;
-    for(var i=0;i<PLAN.length;i++){ if(now<mins(PLAN[i].out)+shift){ nextIdx=i; break; } }
-    if(reachedIdx>=0 && nextIdx<=reachedIdx) nextIdx=Math.min(reachedIdx+1,FINAL);
-
-    var s=PLAN[nextIdx], arr=mins(s.t)+shift;
+    var idx=nextIdx(), s=PLAN[idx], arr=mins(s.t)+shift;
 
     var pill=el('pill');
     if(drift===null){ pill.textContent='TAP A STOP'; pill.className='pill'; }
-    else if(drift>12){ pill.textContent=drift+' MIN DOWN'; pill.className='pill late'; }
-    else if(drift<-12){ pill.textContent=(-drift)+' MIN UP'; pill.className='pill early'; }
+    else if(drift>12){ pill.textContent=Math.round(drift)+' MIN DOWN'; pill.className='pill late'; }
+    else if(drift<-12){ pill.textContent=Math.round(-drift)+' MIN UP'; pill.className='pill early'; }
     else { pill.textContent='ON PLAN'; pill.className='pill ok'; }
 
-    var atStop=null;
-    for(var j=0;j<PLAN.length;j++){
-      if(now>=mins(PLAN[j].t)+shift && now<mins(PLAN[j].out)+shift){ atStop=PLAN[j]; break; }
-    }
-    var doing=el('doingnow');
-    if(now<mins(PLAN[0].out)+shift){
-      doing.innerHTML='Depart — away <b>'+hhmm(mins(PLAN[0].out)+shift)+'</b>.';
-    } else if(atStop){
-      doing.innerHTML='Stopped at <b>'+atStop.name+'</b> — rolling again '+hhmm(mins(atStop.out)+shift)+'.';
-    } else if(now>=mins(PLAN[FINAL].t)+shift){
-      doing.innerHTML='<b>Home.</b>';
-    } else {
-      doing.innerHTML='Riding to <b>'+s.name+'</b>.';
-    }
-
-    var src=el('stop'+nextIdx);
-    el('herokicker').textContent=(nextIdx===FINAL)?'Final destination':'Next stop';
+    // ---- hero: the next proper stop, live where possible -------------------
+    el('herokicker').innerHTML=((idx===FINAL)?'FINAL STOP':'NEXT STOP')+' · <b>'+s.kind+'</b> · plan '
+      +hhmm(arr)+(s.out!==s.t?'→'+hhmm(mins(s.out)+shift):'');
     el('heroname').textContent=s.name;
-    var kind=src.getElementsByClassName('sdet')[0].getElementsByTagName('b')[0].textContent;
-    el('herowhen').textContent=kind+' · '+hhmm(arr)+(s.out!==s.t?' → '+hhmm(mins(s.out)+shift):'');
-    var d2=src.getElementsByClassName('sdet2')[0];
-    el('herowhat').textContent=d2.textContent.replace(/Map →\s*$/,'');
-    el('heroroad').textContent=src.getElementsByClassName('sdet')[0].textContent.replace(kind+' · ','');
-    el('hero').style.borderLeftColor=src.style.borderLeftColor;
-    el('heromap').href=d2.getElementsByTagName('a')[0].href;
+    el('heronotes').textContent=s.detail||s.what;
+    el('heroroad').textContent=s.road;
+    el('hero').style.borderLeftColor=s.col;
+    el('heromap').href=s.map;
 
-    var baseIdx=(reachedIdx>=0)?reachedIdx:Math.max(0,nextIdx-1);
-    el('heromiles').textContent=(PLAN[FINAL].mi-PLAN[baseIdx].mi)+' mi';
-    var eta=mins(PLAN[FINAL].t)+shift, etaEl=el('heroeta');
-    etaEl.textContent=hhmm(eta);
-    etaEl.style.color=(eta>LIMIT)?'#c0392b':'#16324f';
-    el('heroeta').parentNode.getElementsByClassName('lab')[0].textContent=FINALNAME+' ETA';
-    var beforeBail=(nextIdx<=BAIL_IDX)||(nextIdx===BAIL_IDX+1 && now<mins(PLAN[BAIL_IDX].out)+shift);
-    el('bail').style.display=(eta>BAIL_AT && beforeBail)?'block':'none';
+    var baseIdx=(reachedIdx>=0)?reachedIdx:Math.max(0,idx-1);
+    var planDist=Math.max(0,s.mi-PLAN[baseIdx].mi);
+    var dist=null, ride=null, eta=null, src='';
+    if(GEO.pos && s.lat!==undefined){
+      var straight=haversineMi(GEO.pos[0],GEO.pos[1],s.lat,s.lng);
+      var fresh=GEO.road && GEO.roadForIdx===idx && (Date.now()-GEO.roadT)<180000;
+      if(fresh){
+        var ratio=(GEO.roadAtStraight>0.05)?(straight/GEO.roadAtStraight):1;
+        ratio=Math.max(0,Math.min(ratio,1.5));
+        dist=GEO.road.mi*ratio; ride=GEO.road.min*ratio;
+        src='<b>LIVE</b> — GPS + route engine'+(GEO.sim?' (SIM)':'');
+      } else {
+        dist=straight*EST_WIGGLE; ride=dist/EST_MPH*60;
+        src='<b>EST</b> — GPS straight-line'+(GEO.sim?' (SIM)':'');
+        if((Date.now()-GEO.roadT)>45000 || GEO.roadForIdx!==idx) fetchRoad(idx);
+      }
+      eta=now+ride;
+    } else {
+      dist=planDist; ride=Math.max(0,arr-now); eta=arr;
+      src='PLAN times — live distance needs GPS (open the hosted link and allow location)';
+    }
+    el('herodist').textContent=(dist<9.95)?dist.toFixed(1):Math.round(dist);
+    el('herotime').textContent=Math.max(0,Math.round(ride));
+    el('heroeta').textContent=hhmm(eta);
+    el('heroetaun').textContent=(GEO.pos&&s.lat!==undefined)?'arrive':'plan';
+    el('herosrc').innerHTML=src;
 
-    for(var k=0;k<PLAN.length;k++){
-      var row=el('stop'+k);
-      row.className='stop'+(k<nextIdx?' done':'')+(k===nextIdx?' now':'');
-      var tt=hhmm(mins(PLAN[k].t)+shift)+(PLAN[k].out!==PLAN[k].t?'–'+hhmm(mins(PLAN[k].out)+shift):'');
-      el('stime'+k).textContent=tt;
-      el('tap'+k).style.display=(k===nextIdx)?'block':'none';
+    // ---- day line, bail logic (unchanged maths) ---------------------------
+    var finalEta=mins(PLAN[FINAL].t)+shift, fEl=el('finaleta');
+    fEl.textContent=hhmm(finalEta);
+    fEl.style.color=(finalEta>LIMIT)?'#c0392b':'';
+    el('dayleft').textContent=Math.max(0,Math.round(PLAN[FINAL].mi-PLAN[baseIdx].mi));
+    var beforeBail=(idx<=BAIL_IDX)||(idx===BAIL_IDX+1 && now<mins(PLAN[BAIL_IDX].out)+shift);
+    el('bail').style.display=(finalEta>BAIL_AT && beforeBail)?'block':'none';
+
+    // ---- list: future stops stay under "Coming up", passed ones move down --
+    // Rebuilt only when the next stop or the drift changes, so reading is never
+    // interrupted by a scroll jump on the routine 15-second tick.
+    if(idx!==lastIdx || shift!==lastShift){
+      lastIdx=idx; lastShift=shift;
+      var tl=el('timeline'), dw=el('donewrap');
+      for(var k=0;k<PLAN.length;k++){
+        var row=el('stop'+k);
+        row.className='stop'+(k<idx?' done':'')+(k===idx?' now':'');
+        var tt=hhmm(mins(PLAN[k].t)+shift)+(PLAN[k].out!==PLAN[k].t?'–'+hhmm(mins(PLAN[k].out)+shift):'');
+        el('stime'+k).textContent=tt;
+        el('tap'+k).style.display=(k===idx)?'block':'none';
+        var target=(k<idx)?dw:tl;
+        var fu=el('fuel'+k);                      // fuel panel placed before stop k
+        if(fu){ fu.className='stop fuel'+(k<idx?' done':''); target.appendChild(fu); }
+        target.appendChild(row);
+      }
+      el('donehead').style.display=(idx>0)?'block':'none';
     }
   }
 
   function arrive(i){
     reachedIdx=i;
     drift=nowMins()-mins(PLAN[i].t);
+    GEO.road=null;                    // stale route — refetch for the new next stop
     render();
     try{ window.scrollTo({top:0,behavior:'smooth'}); }catch(e){ window.scrollTo(0,0); }
   }
@@ -268,8 +348,9 @@ try{
 
   el('staticnote').style.display='none';
   el('herebtn').style.display='block';
-  el('tlhead').textContent='The day — tap the stop you’ve reached';
-  el('foot').innerHTML='Tap a stop as you reach it and the card re-does the maths.<br>'+el('foot').innerHTML;
+  el('tlhead').textContent='Coming up — tap the stop you’ve reached';
+  el('foot').innerHTML='Tap a stop as you reach it and the card re-does the maths. '+
+    'Live figures use your GPS and the public route engine; riding times stay touring-pace estimates.<br>'+el('foot').innerHTML;
   function bind(i){
     el('stop'+i).onclick=function(ev){
       var t=ev.target || ev.srcElement;
@@ -278,15 +359,10 @@ try{
     };
   }
   for(var b=0;b<PLAN.length;b++) bind(b);
-  el('herebtn').onclick=function(){
-    var now=nowMins(), shift=(drift===null?0:drift), idx=FINAL;
-    for(var i=0;i<PLAN.length;i++){ if(now<mins(PLAN[i].out)+shift){ idx=i; break; } }
-    if(reachedIdx>=0 && idx<=reachedIdx) idx=Math.min(reachedIdx+1,FINAL);
-    arrive(idx);
-  };
+  el('herebtn').onclick=function(){ arrive(nextIdx()); };
 
   render();
-  setInterval(render,20000);
+  setInterval(render,15000);
 }catch(err){
   var n=document.getElementById('staticnote');
   if(n) n.style.display='block';
