@@ -11,44 +11,53 @@
   body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;
        background:#eef2f5;color:#16202a;font-size:18px;line-height:1.45;padding-bottom:32px}
   .wrap{max-width:560px;margin:0 auto;padding:0 12px}
-  /* v29 — the whole header block (compact top bar + next-stop hero) stays pinned while the list scrolls */
+  /* v29 — the whole header block (compact top bar + next-stop hero) stays pinned while the list scrolls.
+     v31 — the hero is COMPACT (rider feedback: the double-height panel hid the upcoming stops):
+     smaller type throughout, notes clamped to 2 lines, so 2-3 future stops show below it. */
   .sticky{position:sticky;top:0;z-index:50;box-shadow:0 4px 14px rgba(10,25,40,.28)}
-  .top{background:#16324f;color:#fff;padding:8px 12px}
-  .top .inner{max-width:560px;margin:0 auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-  .route{font-size:15px;font-weight:700;flex:1;min-width:120px}
-  .route span{font-weight:400;opacity:.75;font-size:13px}
-  .clock{font-size:26px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
+  .top{background:#16324f;color:#fff;padding:6px 12px}
+  .top .inner{max-width:560px;margin:0 auto;display:flex;align-items:center;gap:8px}
+  .route{font-size:14px;font-weight:700;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .route span{font-weight:400;opacity:.75;font-size:12px}
+  .clock{font-size:22px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
   .pill{font-size:14px;font-weight:700;padding:4px 11px;border-radius:999px;background:#54636e;color:#fff}
   .pill.ok{background:#2f8f57}.pill.late{background:#c0392b}.pill.early{background:#1565c0}
-  .hero{background:#fff;padding:12px 14px 12px;border-left:10px solid #8e44ad;border-bottom:1px solid #d5dce2}
+  .hero{background:#fff;padding:9px 12px 8px;border-left:8px solid #8e44ad;border-bottom:1px solid #d5dce2}
   .hero .hin{max-width:560px;margin:0 auto}
-  .kicker{font-size:14px;font-weight:800;letter-spacing:1.2px;color:#5a6773;text-transform:uppercase}
+  .kicker{font-size:12px;font-weight:800;letter-spacing:1px;color:#5a6773;text-transform:uppercase}
   .kicker b{color:#127a3c}
-  .hero h2{font-size:34px;line-height:1.08;margin:3px 0 8px;color:#16324f}
-  .stats{display:flex;gap:8px;text-align:center}
-  .stats div{flex:1;background:#f2f6f9;border-radius:12px;padding:8px 4px 7px}
-  .stats .lab{font-size:12.5px;color:#5a6773;text-transform:uppercase;letter-spacing:.5px;font-weight:700}
-  .stats .val{font-size:38px;font-weight:800;color:#16324f;line-height:1.05;font-variant-numeric:tabular-nums}
-  .stats .un{font-size:14px;font-weight:700;color:#5a6773}
-  .src{font-size:13px;color:#5a6773;margin-top:6px;font-weight:600}
+  .hero h2{font-size:23px;line-height:1.1;margin:2px 0 6px;color:#16324f}
+  .stats{display:flex;gap:7px;text-align:center}
+  .stats div{flex:1;background:#f2f6f9;border-radius:10px;padding:5px 4px 4px}
+  .stats .lab{font-size:10.5px;line-height:1.1;color:#5a6773;text-transform:uppercase;letter-spacing:.5px;font-weight:700}
+  .stats .val{font-size:27px;font-weight:800;color:#16324f;line-height:1.05;font-variant-numeric:tabular-nums}
+  .stats .un{font-size:11.5px;line-height:1.1;font-weight:700;color:#5a6773}
+  /* v31.1 — rider feedback: the plan time-span, source note and road line were adding
+     height without pulling their weight (the ARRIVE stat + "plan"/"arrive" label already
+     say enough, and the road shows again in the stop's own list row) — hidden, not shown. */
+  .kickertime{display:none}
+  .src{display:none;font-size:11.5px;line-height:1.35;color:#5a6773;margin-top:4px;font-weight:600}
   .src b{color:#127a3c}
-  .dayline{font-size:15.5px;color:#16324f;margin-top:6px;font-weight:700}
+  .dayline{font-size:13px;color:#16324f;margin-top:3px;font-weight:700;
+           white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .dayline span{font-variant-numeric:tabular-nums}
-  .notes{font-size:17.5px;margin-top:7px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-  .road{font-size:15px;color:#5a6773;margin-top:4px}
-  .bail{display:none;margin-top:9px;background:#fdecea;border-left:6px solid #c0392b;
-        border-radius:10px;padding:9px 11px;font-size:15.5px;color:#7d2018;font-weight:600}
+  .notes{font-size:15px;line-height:1.3;margin-top:5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .road{display:none;font-size:12.5px;color:#5a6773;margin-top:2px}
+  .bail{display:none;margin-top:7px;background:#fdecea;border-left:6px solid #c0392b;
+        border-radius:10px;padding:7px 10px;font-size:14px;color:#7d2018;font-weight:600}
   .bail b{color:#a5261a}
-  .btnrow{display:flex;gap:9px;margin-top:10px}
+  .btnrow{display:flex;gap:8px;margin-top:8px}
   .btn{flex:1;display:block;text-align:center;text-decoration:none;background:#16324f;color:#fff;
-       font-size:17px;font-weight:700;padding:13px 8px;border-radius:12px;border:none;font-family:inherit}
+       font-size:14.5px;font-weight:700;padding:6px 8px;border-radius:10px;border:none;font-family:inherit}
   .btn.alt{background:#e8edf1;color:#16324f;display:none}
+  .btn.start{background:#127a3c;color:#fff;display:none;font-size:15.5px;font-weight:800;
+             letter-spacing:.4px;white-space:nowrap}
   .btn:active{opacity:.75}
   .staticnote{background:#fff4e0;border-left:6px solid #b26a00;border-radius:10px;
        padding:11px 12px;margin-top:12px;font-size:15px;color:#6b4a00}
   .staticnote b{color:#4c3500}
-  h3.sec{font-size:14.5px;font-weight:800;letter-spacing:1.4px;color:#5a6773;text-transform:uppercase;margin:20px 4px 9px}
-  .stop{background:#fff;border-radius:14px;margin-bottom:9px;padding:13px 14px;
+  h3.sec{font-size:14.5px;font-weight:800;letter-spacing:1.4px;color:#5a6773;text-transform:uppercase;margin:12px 4px 8px}
+  .stop{background:#fff;border-radius:14px;margin-bottom:8px;padding:11px 13px;
         box-shadow:0 1px 5px rgba(14,36,56,.11);border-left:8px solid #dfe4e8}
   .stop.done{opacity:.45}
   .stop.now{box-shadow:0 0 0 3px #f0b429,0 2px 8px rgba(14,36,56,.18)}
@@ -81,20 +90,20 @@
     <div class="pill" id="pill">ALL TIMES 24-HR</div>
   </div></div>
   <div class="hero" id="hero" style="border-left-color:#2e8b57"><div class="hin">
-    <div class="kicker" id="herokicker">NEXT STOP · <b id="herokind">COFFEE</b> · <span id="heroplanwhen">plan 11:44→12:09</span></div>
+    <div class="kicker" id="herokicker">FIRST STOP · <b id="herokind">COFFEE</b> · <span id="heroplanwhen" class="kickertime">plan 11:44→12:09</span></div>
     <h2 id="heroname">The Fuel Tank, Engine Yard</h2>
     <div class="stats">
       <div><div class="lab">To go</div><div class="val" id="herodist">19</div><div class="un">miles</div></div>
       <div><div class="lab">Ride</div><div class="val" id="herotime">44</div><div class="un">min</div></div>
       <div><div class="lab">Arrive</div><div class="val" id="heroeta">11:44</div><div class="un" id="heroetaun">plan</div></div>
     </div>
-    <div class="src" id="herosrc">PLAN times — live distance needs GPS (open the hosted link in Chrome/Safari and allow location)</div>
-    <div class="dayline" id="dayline">New Bath Hotel & Spa <span id="finaleta">16:53</span> · <span id="dayleft">110</span> mi left in the day</div>
+    <div class="src" id="herosrc">PLAN times — allow location for live GPS distance</div>
+    <div class="dayline" id="dayline">New Bath Hotel & Spa <span id="finaleta">16:53</span> · <span id="dayleft">110</span> mi left</div>
     <div class="notes" id="heronotes">Coffee in Belvoir Castle's Victorian estate yard — The Fuel Tank, open Mon 9–5, 2 h free parking at this entrance, the castle straight above. 01476 871011.</div>
     <div class="road" id="heroroad">Woolsthorpe Rd, Belvoir</div>
     <div class="bail" id="bail">Running late? Decide at Ashbourne: skip Cromford Mills, drop down the B5035 to Cromford — ≈15 min saved.</div>
     <div class="btnrow">
-      <a class="btn" id="heromap" href="https://www.google.com/maps/search/?api=1&query=Engine+Yard+Belvoir">Open in Maps</a>
+      <a class="btn" id="heromap" href="https://www.google.com/maps/search/?api=1&query=52.895836,-0.784923">Open in Maps</a>
       <button class="btn alt" id="herebtn" type="button">I'm here now</button>
     </div>
   </div></div>
@@ -119,49 +128,49 @@
       <div class="srow"><div class="stime" id="stime0">11:44–12:09</div>
       <div class="sname">The Fuel Tank, Engine Yard</div></div>
       <div class="sdet"><b>COFFEE</b> · Woolsthorpe Rd, Belvoir</div>
-      <div class="sdet2">Coffee under Belvoir Castle <a href="https://www.google.com/maps/search/?api=1&query=Engine+Yard+Belvoir">Map →</a></div>
+      <div class="sdet2">Coffee under Belvoir Castle <a href="https://www.google.com/maps/search/?api=1&query=52.895836,-0.784923">Map →</a></div>
       <div class="tapme" id="tap0" style="display:none">Tap when you get here →</div>
     </div>
     <div class="stop" id="stop1" style="border-left-color:#8e44ad" role="button" tabindex="0">
       <div class="srow"><div class="stime" id="stime1">12:37–12:45</div>
       <div class="sname">Colston Bassett Dairy</div></div>
       <div class="sdet"><b>PHOTO</b> · Harby road, Colston Bassett</div>
-      <div class="sdet2">Stilton from the Dairy Door <a href="https://www.google.com/maps/search/?api=1&query=Colston+Bassett+Dairy">Map →</a></div>
+      <div class="sdet2">Stilton from the Dairy Door <a href="https://www.google.com/maps/search/?api=1&query=52.891908,-0.956333">Map →</a></div>
       <div class="tapme" id="tap1" style="display:none">Tap when you get here →</div>
     </div>
     <div class="stop" id="stop2" style="border-left-color:#1565c0" role="button" tabindex="0">
       <div class="srow"><div class="stime" id="stime2">13:43–14:33</div>
       <div class="sname">Harpur's of Melbourne</div></div>
       <div class="sdet"><b>LUNCH</b> · Derby Rd, Melbourne</div>
-      <div class="sdet2">Pub lunch in the Georgian town <a href="https://www.google.com/maps/search/?api=1&query=Harpurs+of+Melbourne">Map →</a></div>
+      <div class="sdet2">Pub lunch in the Georgian town <a href="https://www.google.com/maps/search/?api=1&query=52.823371,-1.428357">Map →</a></div>
       <div class="tapme" id="tap2" style="display:none">Tap when you get here →</div>
     </div>
     <div class="stop" id="stop3" style="border-left-color:#8e44ad" role="button" tabindex="0">
       <div class="srow"><div class="stime" id="stime3">14:44–14:52</div>
       <div class="sname">Swarkestone Bridge</div></div>
       <div class="sdet"><b>PHOTO</b> · A514 north end, Crewe & Harpur corner</div>
-      <div class="sdet2">The '45's turning point <a href="https://www.google.com/maps/search/?api=1&query=Swarkestone+Bridge">Map →</a></div>
+      <div class="sdet2">The '45's turning point <a href="https://www.google.com/maps/search/?api=1&query=52.853401,-1.453625">Map →</a></div>
       <div class="tapme" id="tap3" style="display:none">Tap when you get here →</div>
     </div>
     <div class="stop" id="stop4" style="border-left-color:#e67e22" role="button" tabindex="0">
       <div class="srow"><div class="stime" id="stime4">15:45–15:58</div>
       <div class="sname">Ashbourne</div></div>
       <div class="sdet"><b>STRETCH + BAIL-OUT</b> · Shaw Croft, Park Rd</div>
-      <div class="sdet2">Leg-stretch & gingerbread <a href="https://www.google.com/maps/search/?api=1&query=Shaw+Croft+Car+Park+Ashbourne">Map →</a></div>
+      <div class="sdet2">Leg-stretch & gingerbread <a href="https://www.google.com/maps/search/?api=1&query=53.017062,-1.729636">Map →</a></div>
       <div class="tapme" id="tap4" style="display:none">Tap when you get here →</div>
     </div>
     <div class="stop" id="stop5" style="border-left-color:#8e44ad" role="button" tabindex="0">
       <div class="srow"><div class="stime" id="stime5">16:38–16:48</div>
       <div class="sname">Cromford Mills</div></div>
       <div class="sdet"><b>PHOTO</b> · Mill Rd / A6 corner</div>
-      <div class="sdet2">Arkwright's first mill <a href="https://www.google.com/maps/search/?api=1&query=Cromford+Mills">Map →</a></div>
+      <div class="sdet2">Arkwright's first mill <a href="https://www.google.com/maps/search/?api=1&query=53.108923,-1.555206">Map →</a></div>
       <div class="tapme" id="tap5" style="display:none">Tap when you get here →</div>
     </div>
     <div class="stop" id="stop6" style="border-left-color:#0e8f8f" role="button" tabindex="0">
       <div class="srow"><div class="stime" id="stime6">16:53</div>
       <div class="sname">New Bath Hotel & Spa</div></div>
       <div class="sdet"><b>ARRIVE</b> · New Bath Rd, off the A6</div>
-      <div class="sdet2">Spa night above the Derwent <a href="https://www.google.com/maps/search/?api=1&query=New+Bath+Hotel+Matlock+Bath">Map →</a></div>
+      <div class="sdet2">Spa night above the Derwent <a href="https://www.google.com/maps/search/?api=1&query=53.115284,-1.560692">Map →</a></div>
       <div class="tapme" id="tap6" style="display:none">Tap when you get here →</div>
     </div></div>
 
@@ -185,7 +194,7 @@
     <p style="color:#5a6773">Four link sections — reload at the Engine Yard, Harpur's and Ashbourne.</p>
   </div>
 
-  <div class="foot" id="foot">Roadbook V3.0 · created 8 August 2026 ≈21:35 BST (V3.0 — scheduled-stop waypoint rule applied: Swarkestone layby pinned) · re-check weather &amp; closures on the morning.</div>
+  <div class="foot" id="foot">Roadbook V3.1 · created 8 August 2026 ≈22:05 BST (V3.1 — start-gated pillion card with compact hero; stop links = route waypoints) · re-check weather &amp; closures on the morning.</div>
 </div>
 
 <script>
@@ -193,10 +202,12 @@
 (function(){
 "use strict";
 try{
-  var PLAN = [{"t": "11:44", "out": "12:09", "name": "The Fuel Tank, Engine Yard", "mi": 19, "lat": 52.895836, "lng": -0.784923, "kind": "COFFEE", "road": "Woolsthorpe Rd, Belvoir", "what": "Coffee under Belvoir Castle", "detail": "Coffee in Belvoir Castle's Victorian estate yard \u2014 The Fuel Tank, open Mon 9\u20135, 2 h free parking at this entrance, the castle straight above. 01476 871011.", "map": "https://www.google.com/maps/search/?api=1&query=Engine+Yard+Belvoir", "col": "#2e8b57"}, {"t": "12:37", "out": "12:45", "name": "Colston Bassett Dairy", "mi": 32, "lat": 52.891908, "lng": -0.956333, "kind": "PHOTO", "road": "Harby road, Colston Bassett", "what": "Stilton from the Dairy Door", "detail": "One of only five Stilton dairies in the world \u2014 cheese from the Dairy Door hatch on the Harby road. Hatch SHUT 12:30\u201313:30 Mon: on plan you miss it by minutes, so it's the photo unless running early. Declared 1.4-mi spur. 01949 81322.", "map": "https://www.google.com/maps/search/?api=1&query=Colston+Bassett+Dairy", "col": "#8e44ad"}, {"t": "13:43", "out": "14:33", "name": "Harpur's of Melbourne", "mi": 62, "lat": 52.823371, "lng": -1.428357, "kind": "LUNCH", "road": "Derby Rd, Melbourne", "what": "Pub lunch in the Georgian town", "detail": "Pub lunch at the Georgian town's crossroads \u2014 food Mon 12:00\u201321:00, street parking around Market Place; Melbourne Hall gardens one street away. 01332 862134.", "map": "https://www.google.com/maps/search/?api=1&query=Harpurs+of+Melbourne", "col": "#1565c0"}, {"t": "14:44", "out": "14:52", "name": "Swarkestone Bridge", "mi": 66, "lat": 52.853401, "lng": -1.453625, "kind": "PHOTO", "road": "A514 north end, Crewe & Harpur corner", "what": "The '45's turning point", "detail": "Britain's longest stone bridge \u2014 the '45 rebellion's southernmost point. Ride the mile-long causeway first; the stop is now a WAYPOINT at the Crewe & Harpur corner layby at the north end. Blind humps \u2014 steady over.", "map": "https://www.google.com/maps/search/?api=1&query=Swarkestone+Bridge", "col": "#8e44ad"}, {"t": "15:45", "out": "15:58", "name": "Ashbourne", "mi": 90, "lat": 53.017062, "lng": -1.729636, "kind": "STRETCH + BAIL-OUT", "road": "Shaw Croft, Park Rd", "what": "Leg-stretch & gingerbread", "detail": "Leg-stretch in the gingerbread town at the gate of the Dove \u2014 Shaw Croft car park, entrance at this Park Road junction. BAIL-OUT decision point: skip Cromford Mills, drop down the B5035, \u224815 min saved.", "map": "https://www.google.com/maps/search/?api=1&query=Shaw+Croft+Car+Park+Ashbourne", "col": "#e67e22"}, {"t": "16:38", "out": "16:48", "name": "Cromford Mills", "mi": 109, "lat": 53.108923, "lng": -1.555206, "kind": "PHOTO", "road": "Mill Rd / A6 corner", "what": "Arkwright's first mill", "detail": "Arkwright's 1771 cotton mill \u2014 where the factory system began; World Heritage Site. Gateway on Mill Road, pay & display in the mill yard.", "map": "https://www.google.com/maps/search/?api=1&query=Cromford+Mills", "col": "#8e44ad"}, {"t": "16:53", "out": "16:53", "name": "New Bath Hotel & Spa", "mi": 110, "lat": 53.115284, "lng": -1.560692, "kind": "ARRIVE", "road": "New Bath Rd, off the A6", "what": "Spa night above the Derwent", "detail": "Spa night above the Derwent gorge \u2014 the hotel drive comes off New Bath Road, car park at the door. The plan lands with 37 min in hand on the 17:30 deadline.", "map": "https://www.google.com/maps/search/?api=1&query=New+Bath+Hotel+Matlock+Bath", "col": "#0e8f8f"}];
+  var PLAN = [{"t": "11:44", "out": "12:09", "name": "The Fuel Tank, Engine Yard", "mi": 19, "lat": 52.895836, "lng": -0.784923, "kind": "COFFEE", "road": "Woolsthorpe Rd, Belvoir", "what": "Coffee under Belvoir Castle", "detail": "Coffee in Belvoir Castle's Victorian estate yard \u2014 The Fuel Tank, open Mon 9\u20135, 2 h free parking at this entrance, the castle straight above. 01476 871011.", "map": "https://www.google.com/maps/search/?api=1&query=52.895836,-0.784923", "col": "#2e8b57"}, {"t": "12:37", "out": "12:45", "name": "Colston Bassett Dairy", "mi": 32, "lat": 52.891908, "lng": -0.956333, "kind": "PHOTO", "road": "Harby road, Colston Bassett", "what": "Stilton from the Dairy Door", "detail": "One of only five Stilton dairies in the world \u2014 cheese from the Dairy Door hatch on the Harby road. Hatch SHUT 12:30\u201313:30 Mon: on plan you miss it by minutes, so it's the photo unless running early. Declared 1.4-mi spur. 01949 81322.", "map": "https://www.google.com/maps/search/?api=1&query=52.891908,-0.956333", "col": "#8e44ad"}, {"t": "13:43", "out": "14:33", "name": "Harpur's of Melbourne", "mi": 62, "lat": 52.823371, "lng": -1.428357, "kind": "LUNCH", "road": "Derby Rd, Melbourne", "what": "Pub lunch in the Georgian town", "detail": "Pub lunch at the Georgian town's crossroads \u2014 food Mon 12:00\u201321:00, street parking around Market Place; Melbourne Hall gardens one street away. 01332 862134.", "map": "https://www.google.com/maps/search/?api=1&query=52.823371,-1.428357", "col": "#1565c0"}, {"t": "14:44", "out": "14:52", "name": "Swarkestone Bridge", "mi": 66, "lat": 52.853401, "lng": -1.453625, "kind": "PHOTO", "road": "A514 north end, Crewe & Harpur corner", "what": "The '45's turning point", "detail": "Britain's longest stone bridge \u2014 the '45 rebellion's southernmost point. Ride the mile-long causeway first; the stop is now a WAYPOINT at the Crewe & Harpur corner layby at the north end. Blind humps \u2014 steady over.", "map": "https://www.google.com/maps/search/?api=1&query=52.853401,-1.453625", "col": "#8e44ad"}, {"t": "15:45", "out": "15:58", "name": "Ashbourne", "mi": 90, "lat": 53.017062, "lng": -1.729636, "kind": "STRETCH + BAIL-OUT", "road": "Shaw Croft, Park Rd", "what": "Leg-stretch & gingerbread", "detail": "Leg-stretch in the gingerbread town at the gate of the Dove \u2014 Shaw Croft car park, entrance at this Park Road junction. BAIL-OUT decision point: skip Cromford Mills, drop down the B5035, \u224815 min saved.", "map": "https://www.google.com/maps/search/?api=1&query=53.017062,-1.729636", "col": "#e67e22"}, {"t": "16:38", "out": "16:48", "name": "Cromford Mills", "mi": 109, "lat": 53.108923, "lng": -1.555206, "kind": "PHOTO", "road": "Mill Rd / A6 corner", "what": "Arkwright's first mill", "detail": "Arkwright's 1771 cotton mill \u2014 where the factory system began; World Heritage Site. Gateway on Mill Road, pay & display in the mill yard.", "map": "https://www.google.com/maps/search/?api=1&query=53.108923,-1.555206", "col": "#8e44ad"}, {"t": "16:53", "out": "16:53", "name": "New Bath Hotel & Spa", "mi": 110, "lat": 53.115284, "lng": -1.560692, "kind": "ARRIVE", "road": "New Bath Rd, off the A6", "what": "Spa night above the Derwent", "detail": "Spa night above the Derwent gorge \u2014 the hotel drive comes off New Bath Road, car park at the door. The plan lands with 37 min in hand on the 17:30 deadline.", "map": "https://www.google.com/maps/search/?api=1&query=53.115284,-1.560692", "col": "#0e8f8f"}];
   var FUEL = [{"before": 0, "name": "Brim before departure \u2014 Oakham (REQUIRED)"}];
   var LIMIT = 1050, BAIL_AT = 1030, BAIL_IDX = 4, FINAL = PLAN.length-1;
   var FINALNAME = "New Bath Hotel & Spa";
+  var DEPART = 660;    // plan departure time, minutes after midnight (v31)
+  var SKEY = 'pc-day3-langham-matlock';
   var TOURING = 1.1;          // router car time -> relaxed GT pace
   var EST_WIGGLE = 1.25;      // straight-line -> road distance estimate
   var EST_MPH = 28;           // touring average for the straight-line fallback
@@ -207,7 +218,18 @@ try{
   function nowMins(){ var d=new Date(); return d.getHours()*60+d.getMinutes()+d.getSeconds()/60; }
   function el(id){ return document.getElementById(id); }
 
-  var drift=null, reachedIdx=-1, lastIdx=-99, lastShift=null;
+  // v31 — the day is START-GATED: nothing advances by the clock until the rider presses
+  // START (or taps a stop, which implies it). Before that the card always shows the
+  // FIRST stop, however wrong the clock is — opening the card the evening before no
+  // longer shows the day already over. State survives the browser reloading the tab.
+  var drift=null, reachedIdx=-1, started=false, lastIdx=-99, lastShift=null, lastStarted=null;
+  function saveState(){ try{ localStorage.setItem(SKEY,
+      JSON.stringify({s:started?1:0, d:drift, r:reachedIdx})); }catch(e){} }
+  function loadState(){ try{
+      if((location.hash||'').indexOf('reset')>=0){ localStorage.removeItem(SKEY); return; }
+      var v=JSON.parse(localStorage.getItem(SKEY)||'null');
+      if(v && v.s){ started=true; drift=(v.d==null)?null:+v.d; reachedIdx=(v.r==null)?-1:+v.r; }
+    }catch(e){} }
 
   // ---- live position (GPS or #sim=lat,lng test hook) ----------------------
   var GEO={pos:null, sim:false, road:null, roadT:0, roadAtStraight:null, roadForIdx:-1, fetching:false, lastTry:0};
@@ -247,6 +269,7 @@ try{
   }
 
   function nextIdx(){
+    if(!started) return 0;               // v31: the sequence has not begun
     var now=nowMins(), shift=(drift===null?0:drift), idx=FINAL;
     for(var i=0;i<PLAN.length;i++){ if(now<mins(PLAN[i].out)+shift){ idx=i; break; } }
     if(reachedIdx>=0 && idx<=reachedIdx) idx=Math.min(reachedIdx+1,FINAL);
@@ -260,14 +283,21 @@ try{
     var idx=nextIdx(), s=PLAN[idx], arr=mins(s.t)+shift;
 
     var pill=el('pill');
-    if(drift===null){ pill.textContent='TAP A STOP'; pill.className='pill'; }
+    if(!started){ pill.textContent='PRESS START'; pill.className='pill'; }
+    else if(drift===null){ pill.textContent='TAP A STOP'; pill.className='pill'; }
     else if(drift>12){ pill.textContent=Math.round(drift)+' MIN DOWN'; pill.className='pill late'; }
     else if(drift<-12){ pill.textContent=Math.round(-drift)+' MIN UP'; pill.className='pill early'; }
     else { pill.textContent='ON PLAN'; pill.className='pill ok'; }
 
+    // v31 — one button, two jobs: START before the day begins, "I'm here now" after
+    var hb=el('herebtn');
+    if(!started){ hb.textContent='START THE DAY'; hb.className='btn start'; }
+    else { hb.textContent='I’m here now'; hb.className='btn alt'; }
+    hb.style.display='block';
+
     // ---- hero: the next proper stop, live where possible -------------------
-    el('herokicker').innerHTML=((idx===FINAL)?'FINAL STOP':'NEXT STOP')+' · <b>'+s.kind+'</b> · plan '
-      +hhmm(arr)+(s.out!==s.t?'→'+hhmm(mins(s.out)+shift):'');
+    el('herokicker').innerHTML=((idx===FINAL)?'FINAL STOP':(started?'NEXT STOP':'FIRST STOP'))+' · <b>'+s.kind+'</b> · <span class="kickertime">plan '
+      +hhmm(arr)+(s.out!==s.t?'→'+hhmm(mins(s.out)+shift):'')+'</span>';
     el('heroname').textContent=s.name;
     el('heronotes').textContent=s.detail||s.what;
     el('heroroad').textContent=s.road;
@@ -275,7 +305,10 @@ try{
     el('heromap').href=s.map;
 
     var baseIdx=(reachedIdx>=0)?reachedIdx:Math.max(0,idx-1);
-    var planDist=Math.max(0,s.mi-PLAN[baseIdx].mi);
+    // v31: before the first stop is reached the previous milestone is the START (0 mi),
+    // so the first leg shows its true distance instead of 0.
+    var prevMi=(idx===0)?0:PLAN[baseIdx].mi;
+    var planDist=Math.max(0,s.mi-prevMi);
     var dist=null, ride=null, eta=null, src='';
     if(GEO.pos && s.lat!==undefined){
       var straight=haversineMi(GEO.pos[0],GEO.pos[1],s.lat,s.lng);
@@ -292,8 +325,9 @@ try{
       }
       eta=now+ride;
     } else {
-      dist=planDist; ride=Math.max(0,arr-now); eta=arr;
-      src='PLAN times — live distance needs GPS (open the hosted link and allow location)';
+      dist=planDist; eta=arr;
+      ride=started?Math.max(0,arr-now):Math.max(0,mins(s.t)-DEPART);
+      src='PLAN times — allow location for live GPS distance';
     }
     el('herodist').textContent=(dist<9.95)?dist.toFixed(1):Math.round(dist);
     el('herotime').textContent=Math.max(0,Math.round(ride));
@@ -305,39 +339,58 @@ try{
     var finalEta=mins(PLAN[FINAL].t)+shift, fEl=el('finaleta');
     fEl.textContent=hhmm(finalEta);
     fEl.style.color=(finalEta>LIMIT)?'#c0392b':'';
-    el('dayleft').textContent=Math.max(0,Math.round(PLAN[FINAL].mi-PLAN[baseIdx].mi));
+    el('dayleft').textContent=Math.max(0,Math.round(PLAN[FINAL].mi-prevMi));
     var beforeBail=(idx<=BAIL_IDX)||(idx===BAIL_IDX+1 && now<mins(PLAN[BAIL_IDX].out)+shift);
     el('bail').style.display=(finalEta>BAIL_AT && beforeBail)?'block':'none';
 
     // ---- list: future stops stay under "Coming up", passed ones move down --
     // Rebuilt only when the next stop or the drift changes, so reading is never
     // interrupted by a scroll jump on the routine 15-second tick.
-    if(idx!==lastIdx || shift!==lastShift){
-      lastIdx=idx; lastShift=shift;
+    if(idx!==lastIdx || shift!==lastShift || started!==lastStarted){
+      lastIdx=idx; lastShift=shift; lastStarted=started;
       var tl=el('timeline'), dw=el('donewrap');
       for(var k=0;k<PLAN.length;k++){
         var row=el('stop'+k);
         row.className='stop'+(k<idx?' done':'')+(k===idx?' now':'');
         var tt=hhmm(mins(PLAN[k].t)+shift)+(PLAN[k].out!==PLAN[k].t?'–'+hhmm(mins(PLAN[k].out)+shift):'');
         el('stime'+k).textContent=tt;
-        el('tap'+k).style.display=(k===idx)?'block':'none';
+        el('tap'+k).style.display=(k===idx&&started)?'block':'none';
         var target=(k<idx)?dw:tl;
         var fu=el('fuel'+k);                      // fuel panel placed before stop k
-        if(fu){ fu.className='stop fuel'+(k<idx?' done':''); target.appendChild(fu); }
+        if(fu){ var fdone=(k<idx)||(k===0&&started);   // the pre-departure brim is behind you once started
+                fu.className='stop fuel'+(fdone?' done':'');
+                (fdone?dw:tl).appendChild(fu); }
         target.appendChild(row);
       }
-      el('donehead').style.display=(idx>0)?'block':'none';
+      el('donehead').style.display=el('donewrap').children.length?'block':'none';
     }
   }
 
   function arrive(i){
+    started=true;                     // tapping a stop implies the day is under way
     reachedIdx=i;
     drift=nowMins()-mins(PLAN[i].t);
     GEO.road=null;                    // stale route — refetch for the new next stop
+    saveState();
+    lastIdx=-99;
     render();
     try{ window.scrollTo({top:0,behavior:'smooth'}); }catch(e){ window.scrollTo(0,0); }
   }
   window.__arrive = arrive;   // for tests
+
+  function start(){
+    if(started) return;
+    started=true;
+    drift=nowMins()-DEPART;           // re-base the whole day from the actual departure
+    if(Math.abs(drift)>90) drift=0;   // pressed far outside the window (fiddling the night
+                                      // before) — start the sequence on plan times instead
+    GEO.road=null;
+    saveState();
+    lastIdx=-99;
+    render();
+  }
+  window.__start = start;     // for tests
+  window.__seed = function(d){ started=true; drift=(d==null?0:d); reachedIdx=-1; lastIdx=-99; render(); };
 
   el('staticnote').style.display='none';
   el('herebtn').style.display='block';
@@ -352,8 +405,9 @@ try{
     };
   }
   for(var b=0;b<PLAN.length;b++) bind(b);
-  el('herebtn').onclick=function(){ arrive(nextIdx()); };
+  el('herebtn').onclick=function(){ if(!started){ start(); } else { arrive(nextIdx()); } };
 
+  loadState();                // v31: pick the ride back up if the browser reloaded the tab
   render();
   setInterval(render,15000);
 }catch(err){
